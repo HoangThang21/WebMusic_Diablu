@@ -90,12 +90,7 @@ Route::get('/Administrator/qlnhac/xoanhac&{id}', [
 Route::get('/Administrator/qlnhac/suanhac&{id}', [
     AdminHomeControllers::class, 'formchuyensua'
 ]);
-// Route::get('/Administrator/{id}&{username}', [
-//     AdminHomeControllers::class, 'ktuser'
-// ])->name('ktuser')->where('id', '[0-9]+')->where('username', '[a-z][A-Z]+');
-// Route::get('/Administrator', [
-//     AdminHomeControllers::class, 'kichhoatnguoidung'
-// ])->name('kichhoatnguoidung');
+
 Route::post('/Administrator/themnd', [
     AdminHomeControllers::class, 'themnd'
 ])->name('themnd');
@@ -126,3 +121,7 @@ Route::get('/Administrator/qlalbum', [
 Route::get('/Administrator/qltheloai', [
     AdminHomeControllers::class, 'chuyentrang'
 ])->name('qltheloai');
+// ------------------------------------------------------------------------------------------------------
+Route::get('/', function () {
+    return view('MainMusic');
+});
