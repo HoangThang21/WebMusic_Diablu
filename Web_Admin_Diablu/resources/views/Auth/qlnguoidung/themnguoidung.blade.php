@@ -1,5 +1,5 @@
 @include('layouts.top')
-		@if (Auth::check())
+		@if (Auth::guard('web')->check())
         <div>
             <h3>Thêm tài khoản người dùng</h3>
             <div>

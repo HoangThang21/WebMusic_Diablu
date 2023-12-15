@@ -1,5 +1,5 @@
 @include('layouts.top')
-		@if (Auth::check())
+		@if (Auth::guard('web')->check())
         <div>
            <h3>Nghệ sĩ</h3>
            <div><a class="btn btn-primary" href="/Administrator/qlnghesi/themnghesi"><span class="glyphicon glyphicon-plus"></span> Thêm nghệ sĩ</a></div>

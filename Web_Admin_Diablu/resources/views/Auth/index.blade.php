@@ -1,5 +1,5 @@
 @include('layouts.top')
-		@if (Auth::check())
+		@if (Auth::guard('web')->check())
 				<!-- Nút mở hộp modal chứa form thêm mới -->
 				<div><a class="btn btn-primary" href="{{ route('themnguoidung') }}"><span class="glyphicon glyphicon-plus"></span> Thêm người dùng</a></div>
 		  

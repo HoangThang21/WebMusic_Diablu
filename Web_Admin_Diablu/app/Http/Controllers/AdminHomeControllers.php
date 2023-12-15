@@ -21,7 +21,7 @@ class AdminHomeControllers extends Controller
      */
     public function index()
     {
-        if (Auth::check()) {
+        if (Auth::guard('web')->check()) {
             // Người dùng đã đăng nhập
             return view(
                 'Auth/index',
@@ -67,7 +67,7 @@ class AdminHomeControllers extends Controller
 
         if (Hash::check($request->password, $users->password)) {
             Auth::login($users);
-            if (Auth::check()) {
+            if (Auth::guard('web')->check()) {
 
                 return view(
                     'Auth/index',
@@ -110,7 +110,7 @@ class AdminHomeControllers extends Controller
         }
         if ($id == 'qlnghesi' || $id == 'qlnhac' || $id == 'qlalbum' || $id == 'qltheloai') {
 
-            if (Auth::check()) {
+            if (Auth::guard('web')->check()) {
                 return view('Auth.' . $id . '.home', [
                     'ttnguoidung' =>  Auth::user(),
                     'user' => User::all(),

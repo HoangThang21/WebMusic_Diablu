@@ -56,6 +56,7 @@
                 
                 <div class="user">
                     <img class="img_user" src="" alt="">
+                    @if (Auth::guard('api')->check())
                     <div class="dropdow">
                         <div class="info_user">
                             <img src="" alt="">
@@ -64,6 +65,15 @@
                         <li><a href="">Thông tin tài khoản</a></li>
                         <li><a href="">Thoát</a></li>
                     </div>
+                    
+                    @else
+                    <div class="dropdo_login">
+                        <li><a href=""><i class="align-middle me-1" data-feather="log-in"></i>Đăng nhập</a></li>
+                    </div>
+                 
+                    @endif
+                
+                    
                 </div>
             </nav>
         

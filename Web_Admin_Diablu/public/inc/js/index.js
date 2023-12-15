@@ -18,6 +18,7 @@ playButtonId.forEach(function (playButton, indexi) {
         });
         var playButtonIdplay = playButton.id;
         myMusic = [...myMusic, playButtonIdplay];
+
         if (myMusic.length > 0) {
             Playing();
             masterPlay.classList.remove("bi-play-fill");
@@ -28,9 +29,8 @@ playButtonId.forEach(function (playButton, indexi) {
             PlayingEnd();
             setplay = 0;
         }
-
         myMusic.splice(0, 1);
-  
+
         playButton.classList.remove("bi-play-circle-fill");
         playButton.classList.add("bi-pause-circle-fill");
         var id = 1;
@@ -41,14 +41,12 @@ playButtonId.forEach(function (playButton, indexi) {
             data: { _token: csrfToken },
             success: function (data) {
                 console.log("id");
-                
             },
             error: function (error) {
                 console.error("Đã xảy ra lỗi: ", error);
             },
         });
     });
-   
 });
 
 let timer = setInterval(displayTimer, 100);
@@ -85,7 +83,6 @@ music.addEventListener("ended", () => {
         playButton1.classList.remove("bi-pause-circle-fill");
         playButton1.classList.add("bi-play-circle-fill");
     });
- 
 });
 function Playing() {
     music.src = "../../music/" + myMusic[0];
@@ -125,7 +122,7 @@ function displayTimer() {
         currentStart.textContent = formatTimer(currentTime);
     }
     let pro = parseInt((currentTime / duration) * 100);
-    
+
     let seek = pro;
     bar2.style.width = `${seek}%`;
     dot_music.style.left = `${seek}%`;
@@ -138,9 +135,18 @@ function formatTimer(time) {
 }
 const imgdropdow = document.querySelector(".user");
 const dropdow = document.querySelector(".user .dropdow");
+const dropdo_login = document.querySelector(".user .dropdo_login");
 imgdropdow.addEventListener("click", function () {
-    const isHidden =
-        dropdow.style.display === "none" ||
-        getComputedStyle(dropdow).display === "none";
-    dropdow.style.display = isHidden ? "block" : "none";
+    if (dropdow) {
+        const isHidden =
+            dropdow.style.display === "none" ||
+            getComputedStyle(dropdow).display === "none";
+        dropdow.style.display = isHidden ? "block" : "none";
+    }
+    if (dropdo_login) {
+        const isHidden1 =
+            dropdo_login.style.display === "none" ||
+            getComputedStyle(dropdo_login).display === "none";
+        dropdo_login.style.display = isHidden1 ? "block" : "none";
+    }
 });

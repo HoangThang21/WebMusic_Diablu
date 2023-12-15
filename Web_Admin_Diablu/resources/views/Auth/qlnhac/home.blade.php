@@ -1,5 +1,5 @@
 @include('layouts.top')
-		@if (Auth::check())
+		@if (Auth::guard('web')->check())
         <div>
             <h3>Nhạc</h3>
             <div><a class="btn btn-primary" href="/Administrator/qlnhac/themnhac"><span class="glyphicon glyphicon-plus"></span> Thêm nhạc</a></div>

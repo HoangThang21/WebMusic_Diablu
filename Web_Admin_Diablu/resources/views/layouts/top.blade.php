@@ -22,7 +22,7 @@
         </a>
 
 				<ul class="sidebar-nav">
-					@if( Auth::check())
+					@if( Auth::guard('web')->check())
 						@if($ttnguoidung->quyen==1)
 							<li class="sidebar-header text-info">
 								HỆ THỐNG
@@ -194,7 +194,7 @@
 							</a>
 							
 							<a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
-								@if( Auth::check())
+								@if( Auth::guard('web')->check())
 								<img src="../../images/{{  $ttnguoidung->image}}" class="avatar img-fluid rounded me-1" /> 
 								<span class="text-dark">Chào 
 									{ 
@@ -209,7 +209,7 @@
 							</a>
 							
 							<div class="dropdown-menu dropdown-menu-end">
-								@if( Auth::check())
+								@if( Auth::guard('web')->check())
 									<a class="dropdown-item" href="/Administrator/hoso">
 										<i class="align-middle me-1" data-feather="user"></i> Hồ sơ cá nhân
 									</a>								

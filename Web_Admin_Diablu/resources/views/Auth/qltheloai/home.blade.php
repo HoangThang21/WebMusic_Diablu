@@ -1,5 +1,5 @@
 @include('layouts.top')
-		@if (Auth::check())
+		@if (Auth::guard('web')->check())
         <div>
            <h3>Thể loại</h3>
            <div><a class="btn btn-primary" href="/Administrator/qltheloai/themtheloai"><span class="glyphicon glyphicon-plus"></span> Thêm thể loại</a></div>
