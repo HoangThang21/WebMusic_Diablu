@@ -2,6 +2,7 @@
 
 
 use App\Http\Controllers\AdminHomeControllers;
+use App\Http\Controllers\MainHomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\AuthenticateOnceWithBasicAuth;
 use Illuminate\Support\Facades\Route;
@@ -122,6 +123,5 @@ Route::get('/Administrator/qltheloai', [
     AdminHomeControllers::class, 'chuyentrang'
 ])->name('qltheloai');
 // ------------------------------------------------------------------------------------------------------
-Route::get('/', function () {
-    return view('MainMusic');
-});
+Route::get('/', [MainHomeController::class, 'index']);
+Route::post('/ln/{id}', [MainHomeController::class, 'luotnghe']);

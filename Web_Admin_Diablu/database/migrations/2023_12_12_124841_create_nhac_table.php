@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('tennhac');
             $table->string('nhaclink');
             $table->string('imagemusic');
+            $table->integer('luotnghe')->default(0);
             $table->timestamps();
             $table->unsignedInteger('album_idnhac');
             // $table->foreign('album_id')->references('id')->on('albums');

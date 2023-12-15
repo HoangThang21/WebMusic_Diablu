@@ -41,7 +41,7 @@ class AdminHomeControllers extends Controller
     }
     public function login()
     {
-
+        
         return view('Auth.login');
     }
 

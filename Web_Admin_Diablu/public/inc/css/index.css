@@ -13,7 +13,15 @@ body {
     justify-content: center;
     overflow: hidden;
 }
+ul,
+li {
+    list-style-type: none;
+}
+a {
+    text-decoration: none;
+}
 header {
+    position: relative;
     /* width: 85%;
     height: 95%; */
     height: 100%;
@@ -36,9 +44,18 @@ header .menu_side,
 }
 header .song_side {
     width: 75%;
+
+    overflow-x: hidden;
     background-color: #0b1320;
 }
+header .song_side::-webkit-scrollbar {
+    display: none;
+}
 header .master_play {
+    z-index: 99;
+    position: absolute;
+    bottom: 0;
+    left: 0;
     width: 100%;
     height: 10%;
     background-color: #111727;
@@ -98,9 +115,16 @@ header .menu_side .playlist .active .bi {
 header .menu_side .menu_song {
     /* width: calc(100%-1px); */
     width: 100%;
-    height: 56%;
+    height: 300px;
+    overflow-x: hidden;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
     /* border: 1px solid #fff; */
     margin-top: 40px;
+}
+
+header .menu_side .menu_song::-webkit-scrollbar {
+    display: none;
 }
 header .menu_side .menu_song li {
     list-style-type: none;
@@ -281,7 +305,17 @@ header .master_play .bar input {
 
     z-index: 99;
     transition: 3s linear;
-    /* opacity: 0; */
+    opacity: 0;
+}
+audio {
+    width: 100%; /* Rộng 100% của phần tử chứa */
+    margin: 10px 0; /* Khoảng cách giữa các thẻ audio */
+}
+
+/* Định dạng nút controls */
+audio::-webkit-media-controls-panel {
+    background-color: #fff; /* Màu nền của controls */
+    border-radius: 0px;
 }
 
 header .master_play .vol {
@@ -345,55 +379,31 @@ header .song_side {
 }
 
 header .song_side nav {
-    width: 90%;
+    width: 68%;
     height: 10%;
-    margin: auto;
+    margin: 10px 0 0 0;
     /* border: 1px solid #fff; */
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: fixed;
 }
-header .song_side nav ul {
-    display: flex;
-}
-header .song_side nav ul li {
-    position: relative;
-    list-style-type: none;
-    font-size: 14px;
-    color: #4c5262;
-    margin-right: 25px;
-    cursor: pointer;
-    transition: 0.3s linear;
-}
-header .song_side nav ul li:hover {
-    color: #fff;
-}
-header .song_side nav ul li:nth-child(1) {
-    color: #fff;
-}
-header .song_side nav ul li span {
-    position: absolute;
-    width: 100%;
-    height: 2.5px;
-    background: #36e2ec;
-    bottom: -5px;
-    left: 0;
-    border-radius: 20px;
-}
+
 header .song_side nav .search {
     position: relative;
     width: 40%;
-    padding: 5px 10px;
+    padding: 12px 10px;
     border-radius: 20px;
     color: gray;
+    margin-left: 200px;
 }
 header .song_side nav .search::before {
     position: absolute;
     content: "";
     top: 0;
     left: 0;
-    width: 92%;
-    height: 100%;
+    width: 100%;
+    height: 42px;
     /* padding: 1px 10px; */
     border-radius: 20px;
     /* color: gray; */
@@ -402,6 +412,7 @@ header .song_side nav .search::before {
     z-index: -1;
 }
 header .song_side nav .search .bi {
+    z-index: 99;
     font-size: 14px;
     padding: 0px 0 0 10px;
 }
@@ -421,55 +432,126 @@ header .song_side nav .user {
     border-radius: 50%;
     cursor: pointer;
 }
-header .song_side nav .user img {
+header .song_side nav .user .img_user {
     position: absolute;
     width: 30px;
     height: 30px;
     border-radius: 50%;
     box-shadow: 2px 2px 8px #131312;
 }
-/* header .song_side .content {
-    width: 90%;
-    height: 30%;
-    border: 1px solid #fff;
-    padding-top: 20px;
+header .song_side nav .user .dropdow {
+    position: absolute;
+    bottom: -200px;
+    right: -30px;
+    background-color: aliceblue;
+    border-radius: 8px;
+    padding: 10px;
+    display: none;
 }
-header .song_side .content h1 {
-    font-size: 25px;
+header .song_side nav .user .dropdow li {
+    padding: 10px;
+    border-radius: 12px;
+}
+
+header .song_side nav .user .dropdow li:hover {
+    background-color: #36e2ec;
+}
+header .song_side nav .user .dropdow li a {
+    color: #131312;
+    size: 14px;
+}
+header .song_side nav .user .dropdow li:hover a {
+    color: #fff;
+}
+.dropdow .info_user {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 20px;
+}
+.dropdow .info_user img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+.dropdow .info_user p {
+    color: #131312;
+    size: 18px;
     font-weight: 600;
+    width: 200px;
+    flex-wrap: wrap;
 }
-header .song_side .content p {
-    font-size: 11px;
-    font-weight: 400;
-    color: #4c5262;
-    margin: 5px;
+header .song_side .content {
+    padding-top: 75px;
 }
-header .song_side .content .buttons {
-    margin-top: 15px;
+header .song_side .content .Thumbnail {
+    width: 99%;
+    height: 200px;
+    border: 1px solid #fff;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    display: inline-flex;
 }
-header .song_side .content .buttons button {
-    width: 130px;
-    height: 30px;
-    border: 2px solid #36e2ec;
-    outline: none;
-    border-radius: 20px;
-    background: #5adae0;
-    color: #fff;
-    cursor: pointer;
-    transition: 0.3s linear;
+header .song_side .content .Thumbnail .ThubmnailPodcast {
+    /* width: 1132px; */
+    width: 100%;
+    /* height: 200px; */
+    height: 100%;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+
+    /* transform-origin: 0 0; */
+    /* border-radius: 15px; */
 }
-header .song_side .content .buttons button:hover {
-    border: 2px solid #36e2ec;
-    background: none;
+header .song_side .content .Thumbnail .TitlePlaylist {
+    left: 30px;
+    top: 117px;
+    position: absolute;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 20px;
+    display: flex;
+}
+header .song_side .content .Thumbnail .Frame1 {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 8px;
+    display: flex;
+}
+header .song_side .content .Thumbnail .Frame1 .HowToStartPodcast {
+    color: white;
+    font-size: 32px;
+    font-weight: 700;
+    word-wrap: break-word;
+}
+header .song_side .content .Thumbnail .Frame1 .MonthlyListeners {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 20px;
+
+    font-weight: 500;
+    word-wrap: break-word;
+}
+header .song_side .content .Thumbnail .Frame2 {
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 20px;
+    display: inline-flex;
+}
+header .song_side .content .Thumbnail .Frame2:hover .Listenmusic {
+    background-color: #fff;
     color: #36e2ec;
 }
-header .song_side .content .buttons button:nth-child(2) {
-    border: 2px solid #36e2ec;
-    background: none;
-    color: #36e2ec;
-}
-header .song_side .content .buttons button:nth-child(2):hover {
-    border: 2px solid #36e2ec;
+header .song_side .content .Thumbnail .Frame2 .Listenmusic {
+    width: 42px;
+    height: 42px;
+    font-size: 32px;
     background: #36e2ec;
-    color: #fff;
-} */
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    display: flex;
+    cursor: pointer;
+}
