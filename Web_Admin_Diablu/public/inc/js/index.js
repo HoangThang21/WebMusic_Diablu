@@ -33,14 +33,14 @@ playButtonId.forEach(function (playButton, indexi) {
 
         playButton.classList.remove("bi-play-circle-fill");
         playButton.classList.add("bi-pause-circle-fill");
-        var id = 1;
+        var id = playButton.title;
         $.ajax({
             type: "POST",
             url: "/ln/" + id,
             dataType: "json",
             data: { _token: csrfToken },
             success: function (data) {
-                console.log("id");
+                console.log("wellcome to diablu music");
             },
             error: function (error) {
                 console.error("Đã xảy ra lỗi: ", error);

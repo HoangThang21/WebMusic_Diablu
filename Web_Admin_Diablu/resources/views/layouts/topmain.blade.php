@@ -30,19 +30,29 @@
                 </h4>
             </div>
             <div class="menu_song">
-                <li class="songItem">
-                    <span>01</span>
-                    <img src="{{ URL('storage/1.png') }}" alt="" />
-                    <h5>
-                        On a way
-                        <div class="subtitle">Alan</div>
-                    </h5>
-                    <i
-                        class="bi playListPlay bi-play-circle-fill"
-                        id="test1.mp3"
-                    ></i>
-                </li>
                 
+                @foreach ($nhac as $index => $n)
+                    @foreach ($album as $alb)
+                        @foreach ($nghesi as $ns)
+                            @if ($n->album_idnhac == $alb->id&& $alb->nghesi_idalbum == $ns->id)
+                            <li class="songItem">
+                                <span>{{ str_pad($index + 1, 2, '0', STR_PAD_LEFT) }}</span>
+                                <img src="../../images/{{ $n->imagemusic }}" alt="" />
+                                <h5>
+                                    {{ $n->tennhac }}
+                                    <div class="subtitle">{{ $ns->tennghesi }}</div>
+                                </h5>
+                                <i
+                                    class="bi playListPlay bi-play-circle-fill"
+                                    id="{{ $n->nhaclink }}"
+                                    title="{{ $n->id }}"
+                                ></i>
+                            </li>
+                           
+                            @endif
+                        @endforeach
+                    @endforeach
+                @endforeach
             </div>
         </div>
        
@@ -55,12 +65,13 @@
                 </div>
                 
                 <div class="user">
-                    <img class="img_user" src="" alt="">
                     @if (Auth::guard('api')->check())
+                    <img class="img_user" src="../../images/{{ $infouser->image }}" alt="">
+                   
                     <div class="dropdow">
                         <div class="info_user">
-                            <img src="" alt="">
-                            <p>Tên người dùng</p>
+                            <img src="../../images/{{ $infouser->image }}" alt="">
+                            <p>{{ $infouser->name }}</p>
                         </div>
                         <li><a href="">Thông tin tài khoản</a></li>
                         <li><a href="">Thoát</a></li>
@@ -68,7 +79,7 @@
                     
                     @else
                     <div class="dropdo_login">
-                        <li><a href=""><i class="align-middle me-1" data-feather="log-in"></i>Đăng nhập</a></li>
+                        <li><a href="/login"><i class="align-middle me-1" data-feather="log-in"></i>Đăng nhập</a></li>
                     </div>
                  
                     @endif

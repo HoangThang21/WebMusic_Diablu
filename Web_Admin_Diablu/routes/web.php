@@ -125,3 +125,5 @@ Route::get('/Administrator/qltheloai', [
 // ------------------------------------------------------------------------------------------------------
 Route::get('/', [MainHomeController::class, 'index']);
 Route::post('/ln/{id}', [MainHomeController::class, 'luotnghe']);
+Route::get('/login', [MainHomeController::class, 'login']);
+Route::post('/trangchu', [MainHomeController::class, 'trangchu']);

@@ -12,7 +12,7 @@
     </div>
     <img src="storage/1.png" alt="" />
     <h5>
-        On a way <br />
+        On a way a <br />
         <div class="subtitle">Alan</div>
     </h5>
     <div class="icon">
@@ -39,7 +39,7 @@
                 <span>01</span>
                 <img src="" alt="" />
                 <h5>
-                    On a way
+                    On a way a
                     <div class="subtitle">Alan</div>
                 </h5>
                 <i

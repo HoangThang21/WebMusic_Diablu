@@ -26,7 +26,7 @@ class AdminHomeControllers extends Controller
             return view(
                 'Auth/index',
                 [
-                    'ttnguoidung' =>  Auth::user(),
+                    'ttnguoidung' =>   Auth::guard('web')->user(),
                     'user' => User::all(),
                     'nghesi' => Nghesi::all(),
                     'nhac' => Nhac::all(),
@@ -66,13 +66,13 @@ class AdminHomeControllers extends Controller
         $users = User::where("email", $request->input('email'))->first();
 
         if (Hash::check($request->password, $users->password)) {
-            Auth::login($users);
+            Auth::guard('web')->login($users);
             if (Auth::guard('web')->check()) {
 
                 return view(
                     'Auth/index',
                     [
-                        'ttnguoidung' =>  Auth::user(),
+                        'ttnguoidung' =>   Auth::guard('web')->user(),
                         'user' => User::all(),
                         'nghesi' => Nghesi::all(),
                         'nhac' => Nhac::all(),
@@ -89,7 +89,7 @@ class AdminHomeControllers extends Controller
     }
     public function themnguoidung()
     {
-        return view('Auth.qlnguoidung.themnguoidung', ['ttnguoidung' => Auth::user()]);
+        return view('Auth.qlnguoidung.themnguoidung', ['ttnguoidung' =>  Auth::guard('web')->user()]);
     }
 
     public function show(string $id, Request $request)
@@ -97,14 +97,10 @@ class AdminHomeControllers extends Controller
 
         switch ($id) {
             case 'themnguoidung':
-                return view('Auth.qlnguoidung.themnguoidung', ['ttnguoidung' => Auth::user()]);
+                return view('Auth.qlnguoidung.themnguoidung', ['ttnguoidung' =>  Auth::guard('web')->user()]);
             case 'hoso':
-                return view('Auth.qlnguoidung.profile', ['ttnguoidung' => Auth::user()]);
-                // case 'qltheloai':
-                //     return view('Auth.qltheloai.home', ['ttnguoidung' => Auth::user()]);
-                // case 'qlnhac':
-                // case 'qlalbum':
-                // case 'qltheloai':
+                return view('Auth.qlnguoidung.profile', ['ttnguoidung' =>  Auth::guard('web')->user()]);
+               
             default:
                 break;
         }
@@ -112,7 +108,7 @@ class AdminHomeControllers extends Controller
 
             if (Auth::guard('web')->check()) {
                 return view('Auth.' . $id . '.home', [
-                    'ttnguoidung' =>  Auth::user(),
+                    'ttnguoidung' =>   Auth::guard('web')->user(),
                     'user' => User::all(),
                     'nghesi' => Nghesi::all(),
                     'nhac' => Nhac::all(),
@@ -141,7 +137,7 @@ class AdminHomeControllers extends Controller
             return view(
                 'Auth/index',
                 [
-                    'ttnguoidung' =>  Auth::user(),
+                    'ttnguoidung' =>   Auth::guard('web')->user(),
                     'user' => User::all(),
                     'nghesi' => Nghesi::all(),
                     'nhac' => Nhac::all(),
@@ -179,20 +175,20 @@ class AdminHomeControllers extends Controller
     }
     public function themtheloai()
     {
-        return view('Auth.qltheloai.themtheloai', ['ttnguoidung' => Auth::user()]);
+        return view('Auth.qltheloai.themtheloai', ['ttnguoidung' =>  Auth::guard('web')->user()]);
     }
     public function themnghesi()
     {
-        return view('Auth.qlnghesi.themnghesi', ['ttnguoidung' => Auth::user()]);
+        return view('Auth.qlnghesi.themnghesi', ['ttnguoidung' =>  Auth::guard('web')->user()]);
     }
     public function themnhac()
     {
-        return view('Auth.qlnhac.themnhac', ['ttnguoidung' => Auth::user(), 'album' => Album::all(),]);
+        return view('Auth.qlnhac.themnhac', ['ttnguoidung' =>  Auth::guard('web')->user(), 'album' => Album::all(),]);
     }
     public function themalbum()
     {
         return view('Auth.qlalbum.themalbum', [
-            'ttnguoidung' => Auth::user(),
+            'ttnguoidung' =>  Auth::guard('web')->user(),
             'nghesi' => Nghesi::all(),
             'theloai' => Theloai::all(),
         ]);
@@ -258,7 +254,7 @@ class AdminHomeControllers extends Controller
     }
     public function logout()
     {
-        Auth::logout();
+        Auth::guard('web')->logout();
 
         return  redirect()->intended('/Administrator');
     }
@@ -400,28 +396,24 @@ class AdminHomeControllers extends Controller
                 case 'tl':
                     $theloai = Theloai::where('id', $number)->first();
 
-                    return view('Auth.qltheloai.suatheloai', ['ttnguoidung' => Auth::user(), 'theloai' => $theloai]);
+                    return view('Auth.qltheloai.suatheloai', ['ttnguoidung' =>  Auth::guard('web')->user(), 'theloai' => $theloai]);
                 case 'ns':
                     $nghesi = Nghesi::where('id', $number)->first();
 
-                    return view('Auth.qlnghesi.suanghesi', ['ttnguoidung' => Auth::user(), 'nghesi' => $nghesi]);
+                    return view('Auth.qlnghesi.suanghesi', ['ttnguoidung' =>  Auth::guard('web')->user(), 'nghesi' => $nghesi]);
                 case 'alb':
 
                     $album = Album::where('id', $number)->first();
                     $nghesi = Nghesi::all();
                     $theloai = Theloai::all();
                     return view('Auth.qlalbum.suaalbum', [
-                        'ttnguoidung' => Auth::user(), 'album' => $album,
+                        'ttnguoidung' =>  Auth::guard('web')->user(), 'album' => $album,
                         'nghesi' => $nghesi, 'theloai' => $theloai,
                     ]);
                 case 'music':
                     $music = Nhac::where('id', $number)->first();
-                    return view('Auth.qlnhac.suamusic', ['ttnguoidung' => Auth::user(), 'album' => Album::all(), 'music' => $music]);
-                    // case 'qltheloai':
-                    //     return view('Auth.qltheloai.home', ['ttnguoidung' => Auth::user()]);
-                    // case 'qlnhac':
-                    // case 'qlalbum':
-                    // case 'qltheloai':
+                    return view('Auth.qlnhac.suamusic', ['ttnguoidung' =>  Auth::guard('web')->user(), 'album' => Album::all(), 'music' => $music]);
+              
                 default:
                     break;
             }
@@ -448,11 +440,7 @@ class AdminHomeControllers extends Controller
                         ]);
 
                     return redirect()->intended('/Administrator/qltheloai');
-                    // case 'qltheloai':
-                    //     return view('Auth.qltheloai.home', ['ttnguoidung' => Auth::user()]);
-                    // case 'qlnhac':
-                    // case 'qlalbum':
-                    // case 'qltheloai':
+                   
                 default:
                     break;
             }
@@ -514,11 +502,7 @@ class AdminHomeControllers extends Controller
                     ->delete();
 
                 return redirect()->intended('/Administrator/qlnhac');
-                // case 'qltheloai':
-                //     return view('Auth.qltheloai.home', ['ttnguoidung' => Auth::user()]);
-                // case 'qlnhac':
-                // case 'qlalbum':
-                // case 'qltheloai':
+      
             default:
                 break;
         }
