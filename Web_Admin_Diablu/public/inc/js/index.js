@@ -3,6 +3,9 @@ let myMusic = [];
 let setplay = 0;
 
 var playButtonId = document.querySelectorAll(".songItem i");
+var IgMuSc = document.querySelector(".IgMuSc");
+var NameBai = document.querySelector(".NameBai");
+var NameNS = document.querySelector(".NameNS");
 
 let wave = document.querySelector(".wave");
 let currentStart = document.getElementById("currentStart");
@@ -46,13 +49,46 @@ playButtonId.forEach(function (playButton, indexi) {
                 console.error("Đã xảy ra lỗi: ", error);
             },
         });
+        $.ajax({
+            type: "POST",
+            url: "/loadmusic/" + id,
+            dataType: "json",
+            data: { _token: csrfToken },
+            success: function (data) {
+                console.log("ađâs", data);
+                IgMuSc.src = "../../images/" + data.success.imagemusic;
+                NameBai.innerText = data.success.tennhac;
+                NameNS.innerText = data.successns.tennghesi;
+            },
+
+            error: function (error) {
+                console.error("Đã xảy ra lỗi: ", error);
+            },
+        });
     });
 });
 
 let timer = setInterval(displayTimer, 100);
 let masterPlay = document.getElementById("masterPlay");
 let music = new Audio();
+var i = 0;
 masterPlay.addEventListener("click", () => {
+    if (i == 0) {
+        myMusic = [...myMusic, baidau];
+        i = 1;
+        $.ajax({
+            type: "POST",
+            url: "/ln/" + idbaidau,
+            dataType: "json",
+            data: { _token: csrfToken },
+            success: function (data) {
+                console.log("wellcome to diablu music");
+            },
+            error: function (error) {
+                console.error("Đã xảy ra lỗi: ", error);
+            },
+        });
+    }
     if (setplay == 0) {
         if (myMusic.length === 0) {
             PlayingEnd();
@@ -149,4 +185,14 @@ imgdropdow.addEventListener("click", function () {
             getComputedStyle(dropdo_login).display === "none";
         dropdo_login.style.display = isHidden1 ? "block" : "none";
     }
+});
+
+$(document).ready(function () {
+    $("#searchInput").keypress(function (event) {
+        if (event.keyCode === 13) {
+            // Kiểm tra nút Enter
+            event.preventDefault(); // Ngăn chặn form tự động submit
+            $("#searchForm").submit(); // Gửi form tìm kiếm
+        }
+    });
 });

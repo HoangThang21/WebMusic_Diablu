@@ -57,8 +57,9 @@ header .master_play {
     background-color: #111727;
     box-shadow: 0 3px 8px #090f1f;
 }
-header .menu_side h1 {
+header .menu_side a h1 {
     font-weight: 500;
+    color: #fff;
     font-size: 20px;
     margin: 15px 0 0 20px;
 }
@@ -215,6 +216,11 @@ header .master_play img {
     width: 35px;
     height: 35px;
 }
+header .master_play .info_ns {
+    /* margin-left: 10px; */
+    display: flex;
+    flex-direction: column;
+}
 header .master_play h5 {
     width: 130px;
     font-size: 13px;
@@ -222,9 +228,9 @@ header .master_play h5 {
     color: #fff;
     line-height: 15px;
 }
-header .master_play h5 .subtitle {
+header .master_play .subtitle {
     font-size: 11px;
-    /* margin-left: 15px; */
+    margin-left: 15px;
     color: #4c5262;
     /* line-height: 15px; */
 }
@@ -386,15 +392,15 @@ header .song_side nav {
     position: fixed;
 }
 
-header .song_side nav .search {
+header .song_side nav .searchForm .search {
     position: relative;
-    width: 40%;
+    width: 60%;
     padding: 12px 10px;
     border-radius: 20px;
     color: gray;
     margin-left: 200px;
 }
-header .song_side nav .search::before {
+header .song_side nav .searchForm .search::before {
     position: absolute;
     content: "";
     top: 0;
@@ -408,12 +414,12 @@ header .song_side nav .search::before {
     backdrop-filter: blur(5px);
     z-index: -1;
 }
-header .song_side nav .search .bi {
+header .song_side nav .searchForm .search .bi {
     z-index: 99;
     font-size: 14px;
     padding: 0px 0 0 10px;
 }
-header .song_side nav .search input {
+header .song_side nav .searchForm .search input {
     background: none;
     outline: none;
     border: none;
@@ -447,6 +453,7 @@ header .song_side nav .user .dropdow {
     display: none;
 }
 header .song_side nav .user .dropdow li {
+    width: 100%;
     padding: 10px;
     border-radius: 12px;
 }
@@ -455,6 +462,8 @@ header .song_side nav .user .dropdow li:hover {
     background-color: #36e2ec;
 }
 header .song_side nav .user .dropdow li a {
+    display: block;
+    width: 100%;
     color: #131312;
     size: 14px;
 }
@@ -468,7 +477,7 @@ header .song_side nav .user .dropdo_login {
     background-color: aliceblue;
     border-radius: 8px;
     padding: 10px;
-    /* display: none; */
+    display: none;
 }
 header .song_side nav .user .dropdo_login li {
     width: 120px;
@@ -476,6 +485,8 @@ header .song_side nav .user .dropdo_login li {
     border-radius: 12px;
 }
 header .song_side nav .user .dropdo_login li a {
+    display: block;
+    width: 100%;
     color: #131312;
     size: 14px;
 }
@@ -503,7 +514,8 @@ header .song_side nav .user .dropdo_login li:hover a {
     flex-wrap: wrap;
 }
 header .song_side .content {
-    overflow: hidden;
+    height: 500px;
+    overflow: scroll;
     margin-top: 75px;
 }
 header .song_side .content::-webkit-scrollbar {
@@ -517,6 +529,7 @@ header .song_side .content .Thumbnail {
     justify-content: flex-start;
     align-items: center;
     display: inline-flex;
+    position: relative;
 }
 header .song_side .content .Thumbnail .ThubmnailPodcast {
     /* width: 1132px; */
@@ -531,7 +544,7 @@ header .song_side .content .Thumbnail .ThubmnailPodcast {
 }
 header .song_side .content .Thumbnail .TitlePlaylist {
     left: 30px;
-    top: 117px;
+    top: 26px;
     position: absolute;
     flex-direction: column;
     justify-content: flex-start;
@@ -582,8 +595,8 @@ header .song_side .content .Thumbnail .Frame2 .Listenmusic {
     cursor: pointer;
 }
 header .song_side .content .Thumbnail .Creator {
-    left: 700px;
-    top: 200px;
+    right: 100px;
+    top: 100px;
     position: absolute;
     justify-content: flex-start;
     align-items: center;
@@ -616,5 +629,251 @@ header .song_side .content .Thumbnail .Creator .Frame3 .KFolAlbum {
     font-size: 14px;
 
     font-weight: 500;
+    word-wrap: break-word;
+}
+header .song_side .content .table {
+    padding: 10px 0 0 20px;
+    width: 97%;
+}
+header .song_side .content .table .PodcastItem {
+    width: 832px;
+    height: 40px;
+    position: relative;
+    border-bottom: 1px rgba(255, 255, 255, 0.03) solid;
+}
+header .song_side .content .table .PodcastItem .Playlist {
+    width: 98px;
+    left: 425px;
+    top: -1px;
+    position: absolute;
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 14px;
+    font-weight: 600;
+    word-wrap: break-word;
+}
+header .song_side .content .table .PodcastItem .Title {
+    left: 50px;
+    top: -1px;
+    position: absolute;
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 14px;
+    font-family: Quicksand;
+    font-weight: 600;
+    word-wrap: break-word;
+}
+header .song_side .content .table .PodcastItem .IDprocas {
+    left: 0px;
+    top: -1px;
+    position: absolute;
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 16px;
+    font-weight: 600;
+    word-wrap: break-word;
+}
+header .song_side .content .table .PodcastItem .ClockThree1 {
+    width: 67px;
+    height: 14px;
+    left: 723px;
+    top: -1px;
+    position: absolute;
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 14px;
+    font-weight: 600;
+    word-wrap: break-word;
+}
+header .song_side .content .table .PodcastItem .HeadSideHeadphones1 {
+    width: 67px;
+    height: 14px;
+    left: 629px;
+    top: -1px;
+    position: absolute;
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 14px;
+    font-weight: 600;
+    word-wrap: break-word;
+}
+header .song_side .content .table .PodcastItemMusic {
+    width: 832px;
+    height: 80px;
+    position: relative;
+    border-bottom: 1px rgba(255, 255, 255, 0.03) solid;
+}
+header .song_side .content .table .PodcastItemMusic:hover {
+    background-color: rgb(105, 105, 170, 0.1);
+}
+header .song_side .content .table .PodcastItemMusic .ItemGroup {
+    width: 832px;
+    height: 45px;
+    left: 0px;
+    top: 16px;
+    position: absolute;
+}
+header .song_side .content .table .PodcastItemMusic .ItemGroup .Rectangleimg {
+    width: 45px;
+    height: 45px;
+    left: 50px;
+    top: 0px;
+    position: absolute;
+    border-radius: 8px;
+}
+header .song_side .content .table .PodcastItemMusic .ItemGroup .FrameInfo {
+    width: 196px;
+    height: 38px;
+    left: 115px;
+    top: 3px;
+    position: absolute;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    display: inline-flex;
+}
+header
+    .song_side
+    .content
+    .table
+    .PodcastItemMusic
+    .ItemGroup
+    .YourFriendsInstead {
+    color: white;
+    font-size: 16px;
+
+    font-weight: 500;
+    word-wrap: break-word;
+}
+header .song_side .content .table .PodcastItemMusic .ItemGroup .KenAdam {
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 14px;
+    font-weight: 500;
+    word-wrap: break-word;
+}
+header .song_side .content .table .PodcastItemMusic .ItemGroup .AngleLeft {
+    width: 30px;
+    height: 30px;
+    padding-left: 3.75px;
+    padding-right: 3.75px;
+    left: 0px;
+    top: 8px;
+    position: absolute;
+    border-radius: 71.25px;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+    gap: 7.5px;
+    display: inline-flex;
+}
+header
+    .song_side
+    .content
+    .table
+    .PodcastItemMusic
+    .ItemGroup
+    .AngleLeft
+    .Play1 {
+    width: 15px;
+    height: 15px;
+    position: relative;
+    cursor: pointer;
+}
+header
+    .song_side
+    .content
+    .table
+    .PodcastItemMusic
+    .ItemGroup
+    .HowToStartPodcast {
+    width: 210px;
+    left: 425px;
+    top: 12px;
+    position: absolute;
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 16px;
+    font-weight: 500;
+    word-wrap: break-word;
+}
+header .song_side .content .table .PodcastItemMusic .ItemGroup .View {
+    left: 629px;
+    top: 12px;
+    position: absolute;
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 16px;
+    font-weight: 500;
+    word-wrap: break-word;
+}
+header .song_side .content .table .PodcastItemMusic .ItemGroup .Duration {
+    left: 723px;
+    top: 12px;
+    position: absolute;
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 16px;
+
+    font-weight: 500;
+    word-wrap: break-word;
+}
+header .song_side .content .GeneralInfoPhoto {
+    /* width: 996.26px; */
+    width: 100%;
+    height: 202.3px;
+    position: relative;
+    padding: 10px 0 0 20px;
+}
+header .song_side .content .GeneralInfoPhoto .UserProfile {
+    width: 250px;
+
+    text-align: center;
+    color: #fff;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 20px;
+    word-wrap: break-word;
+    padding-bottom: 20px;
+}
+header .song_side .content .GeneralInfoPhoto .Gachngang {
+    width: 250px;
+    height: 0px;
+    padding-bottom: 20px;
+    border-top: 1px #d0d0d0 solid;
+}
+header .song_side .content .GeneralInfoPhoto .ImageUser {
+    width: 466.85px;
+    height: 104.6px;
+    display: flex;
+}
+header .song_side .content .GeneralInfoPhoto .ImageUser .ImageUserItem {
+    width: 105.53px;
+    height: 104.6px;
+    background-repeat: no-repeat;
+}
+header
+    .song_side
+    .content
+    .GeneralInfoPhoto
+    .ImageUser
+    .ImageUserItem
+    .EllipseImage {
+    width: 70px;
+    height: 70px;
+    border: 5px white solid;
+    border-radius: 10px;
+}
+
+header .song_side .content .GeneralInfoPhoto .ImageUser .infous .AlaaMohamed {
+    width: 159.23px;
+
+    color: #fff;
+    font-size: 20px;
+    font-weight: 700;
+    word-wrap: break-word;
+}
+header
+    .song_side
+    .content
+    .GeneralInfoPhoto
+    .ImageUser
+    .infous
+    .ProductDesignEmail {
+    width: 158.22px;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 400;
     word-wrap: break-word;
 }

@@ -36,6 +36,9 @@ Route::get('/Administrator/user', [
 Route::get('/Administrator/suand', [
     AdminHomeControllers::class, 'update'
 ]);
+Route::get('/Administrator/doimatkhau', [
+    AdminHomeControllers::class, 'doimatkhau'
+]);
 Route::put('/Administrator/qltheloai/suatheloai', [
     AdminHomeControllers::class, 'suatheloai'
 ]);
@@ -48,7 +51,7 @@ Route::put('/Administrator/qlalbum/suaalbum', [
 Route::put('/Administrator/qlnhac/suanhac', [
     AdminHomeControllers::class, 'suanhac'
 ]);
-Route::get('/logout', [AdminHomeControllers::class, 'logout'])->name('logout');
+Route::get('/logoutadmin', [AdminHomeControllers::class, 'logout'])->name('logoutadmin');
 
 Route::get('/Administrator/themnguoidung', [
     AdminHomeControllers::class, 'themnguoidung'
@@ -107,6 +110,9 @@ Route::post('/Administrator/themalb', [
 Route::post('/Administrator/themnhac', [
     AdminHomeControllers::class, 'themmusic'
 ])->name('themnhac');
+Route::post('/Administrator/doimatkhau', [
+    AdminHomeControllers::class, 'doimatkhau'
+])->name('doimatkhau');
 // Route::post('/Administrator/suand', [
 //     AdminHomeControllers::class, 'suand'
 // ])->name('suand');
@@ -125,5 +131,10 @@ Route::get('/Administrator/qltheloai', [
 // ------------------------------------------------------------------------------------------------------
 Route::get('/', [MainHomeController::class, 'index']);
 Route::post('/ln/{id}', [MainHomeController::class, 'luotnghe']);
+Route::post('/loadmusic/{id}', [MainHomeController::class, 'loadmusic']);
 Route::get('/login', [MainHomeController::class, 'login']);
+Route::get('/logout', [MainHomeController::class, 'logout']);
 Route::post('/trangchu', [MainHomeController::class, 'trangchu']);
+Route::get('/trangchu', [MainHomeController::class, 'index']);
+Route::get('/trangchu/profile', [MainHomeController::class, 'profile']);
+Route::get('/trangchu/search', [MainHomeController::class, 'search']);

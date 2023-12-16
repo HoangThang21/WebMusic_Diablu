@@ -41,9 +41,10 @@ class AdminHomeControllers extends Controller
     }
     public function login()
     {
-        
+
         return view('Auth.login');
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -64,24 +65,27 @@ class AdminHomeControllers extends Controller
             'password' => ['required'],
         ]);
         $users = User::where("email", $request->input('email'))->first();
+        if ($users->quyen == 1 || $users->quyen == 2) {
+            if (Hash::check($request->password, $users->password)) {
+                Auth::guard('web')->login($users);
+                if (Auth::guard('web')->check()) {
 
-        if (Hash::check($request->password, $users->password)) {
-            Auth::guard('web')->login($users);
-            if (Auth::guard('web')->check()) {
-
-                return view(
-                    'Auth/index',
-                    [
-                        'ttnguoidung' =>   Auth::guard('web')->user(),
-                        'user' => User::all(),
-                        'nghesi' => Nghesi::all(),
-                        'nhac' => Nhac::all(),
-                        'theloai' => Theloai::all(),
-                        'album' => Album::all(),
+                    return view(
+                        'Auth/index',
+                        [
+                            'ttnguoidung' =>   Auth::guard('web')->user(),
+                            'user' => User::all(),
+                            'nghesi' => Nghesi::all(),
+                            'nhac' => Nhac::all(),
+                            'theloai' => Theloai::all(),
+                            'album' => Album::all(),
 
 
-                    ]
-                );
+                        ]
+                    );
+                }
+            } else {
+                return view('Auth.login');
             }
         } else {
             return view('Auth.login');
@@ -100,7 +104,9 @@ class AdminHomeControllers extends Controller
                 return view('Auth.qlnguoidung.themnguoidung', ['ttnguoidung' =>  Auth::guard('web')->user()]);
             case 'hoso':
                 return view('Auth.qlnguoidung.profile', ['ttnguoidung' =>  Auth::guard('web')->user()]);
-               
+            case 'doimatkhau':
+                return view('Auth.qlnguoidung.doimatkhau', ['ttnguoidung' =>  Auth::guard('web')->user(), 'loi' => '']);
+
             default:
                 break;
         }
@@ -129,9 +135,14 @@ class AdminHomeControllers extends Controller
 
                     return redirect()->intended('/Administrator');
                 }
+            }
+            if (count($parts) == 2 && is_numeric($parts[0]) && is_string($parts[1])) {
+                if ($parts[1] == 'userde') {
+                    $user = User::where('id', $parts[0])
+                        ->delete();
 
-
-                // Now you can use $numericPart and $stringPart as needed
+                    return redirect()->intended('/Administrator');
+                }
             }
         } else {
             return view(
@@ -202,6 +213,30 @@ class AdminHomeControllers extends Controller
         $tl->tentheloai = $request->input('txttheloai');
         $tl->save();
         return redirect()->intended('/Administrator/qltheloai');
+    }
+    public function doimatkhau(Request $request)
+    {
+        $request->validate([
+            'txtpascu' => ['required'],
+            'txtmatkhaumoi' => ['required'],
+            'txtmatkhaumoixn' => ['required'],
+        ]);
+        $user = User::where('id', $request->input('iduser'))->first();
+
+        if (Hash::check($request->input('txtpascu'), $user->password)) {
+            if ($request->input('txtmatkhaumoi') === $request->input('txtmatkhaumoixn')) {
+                $us = User::where('id', $request->input('iduser'))->update([
+                    'password' => Hash::make($request->input('txtmatkhaumoi')),
+                ]);
+                return redirect()->intended('/Administrator');
+            } else {
+                $se = 'Lỗi,mật khẩu không giống nhau';
+                return view('Auth.qlnguoidung.doimatkhau', ['ttnguoidung' =>  Auth::guard('web')->user(), 'loi' => $se]);
+            }
+        } else {
+            $se = 'Lỗi,mật khẩu cũ';
+            return view('Auth.qlnguoidung.doimatkhau', ['ttnguoidung' =>  Auth::guard('web')->user(), 'loi' => $se]);
+        }
     }
     public function themns(Request $request)
     {
@@ -370,7 +405,7 @@ class AdminHomeControllers extends Controller
                 $nhac = Nhac::where('id', $request->input('txtidnhac'))
                     ->update([
                         'tennhac' => $request->input('txttennhac'),
-                        
+
 
                         'album_idnhac'   => $request->input('optloains'),
 
@@ -413,7 +448,7 @@ class AdminHomeControllers extends Controller
                 case 'music':
                     $music = Nhac::where('id', $number)->first();
                     return view('Auth.qlnhac.suamusic', ['ttnguoidung' =>  Auth::guard('web')->user(), 'album' => Album::all(), 'music' => $music]);
-              
+
                 default:
                     break;
             }
@@ -440,7 +475,7 @@ class AdminHomeControllers extends Controller
                         ]);
 
                     return redirect()->intended('/Administrator/qltheloai');
-                   
+
                 default:
                     break;
             }
@@ -502,7 +537,7 @@ class AdminHomeControllers extends Controller
                     ->delete();
 
                 return redirect()->intended('/Administrator/qlnhac');
-      
+
             default:
                 break;
         }

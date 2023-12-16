@@ -15,7 +15,7 @@
 <body>
     <header>
         <div class="menu_side">
-            <h1>Music Diablu</h1>
+           <a href="/trangchu"> <h1>Music Diablu</h1></a>
             <div class="playlist">
                 <h4 class="active">
                     <span></span
@@ -58,11 +58,13 @@
        
         <div class="song_side">
             <nav>
+                <form id="searchForm" class="searchForm" action="/trangchu/search" method="get">
+                    <div class="search">
+                        <i class="bi bi-search "></i>
+                        <input type="text" name="searchvv"placeholder="Nhập nhạc cần tìm" class="searchInput"/>
+                    </div>
+                </form>
                 
-                <div class="search">
-                    <i class="bi bi-search"></i>
-                    <input type="text" placeholder="tim kiem" />
-                </div>
                 
                 <div class="user">
                     @if (Auth::guard('api')->check())
@@ -73,11 +75,13 @@
                             <img src="../../images/{{ $infouser->image }}" alt="">
                             <p>{{ $infouser->name }}</p>
                         </div>
-                        <li><a href="">Thông tin tài khoản</a></li>
-                        <li><a href="">Thoát</a></li>
+                        <li><a href="/trangchu/profile">Thông tin tài khoản</a></li>
+                        <li><a href="/trangchu/doimatkhau">Đổi mật khẩu</a></li>
+                        <li><a href="/logout">Thoát</a></li>
                     </div>
                     
                     @else
+                    <img class="img_user" src="../../images/userlogout.png" alt="">
                     <div class="dropdo_login">
                         <li><a href="/login"><i class="align-middle me-1" data-feather="log-in"></i>Đăng nhập</a></li>
                     </div>

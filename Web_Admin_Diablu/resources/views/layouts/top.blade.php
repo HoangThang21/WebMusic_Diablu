@@ -218,7 +218,7 @@
 									</a>
 									
 									<div class="dropdown-divider"></div>
-									<a class="dropdown-item" href="{{ route('logout') }}"><i class="align-middle me-1" data-feather="log-out"></i> Đăng xuất</a>
+									<a class="dropdown-item" href="{{ route('logoutadmin') }}"><i class="align-middle me-1" data-feather="log-out"></i> Đăng xuất</a>
 								@else
 									<a class="dropdown-item" href="/Administrator/login">
 										<i class="align-middle me-1" data-feather="log-in"></i> Đăng nhập

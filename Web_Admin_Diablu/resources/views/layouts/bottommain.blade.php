@@ -10,11 +10,13 @@
         <div class="wave1"></div>
         <div class="wave1"></div>
     </div>
-    <img src="storage/1.png" alt="" />
-    <h5>
-        On a way a <br />
-        <div class="subtitle">Alan</div>
-    </h5>
+    <img src="../../images/{{ $baidau->imagemusic }}" alt=""  class="IgMuSc"/>
+    <div class="info_ns">
+        <h5 class="NameBai">{{ $baidau->tennhac }}<br />
+        
+        </h5>
+        <div class="subtitle NameNS">{{ $nghesidau->tennghesi }}</div>
+    </div>
     <div class="icon">
         <i class="bi bi-skip-start-fill" id="back"></i>
 
@@ -57,6 +59,8 @@
 <script>
 
     var csrfToken =` {{ csrf_token() }}`;
+    var baidau='{{ $baidau->nhaclink }}';
+    var idbaidau='{{ $baidau->id }}';
 
 </script>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
