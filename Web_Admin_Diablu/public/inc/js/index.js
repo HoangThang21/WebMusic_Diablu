@@ -1,11 +1,15 @@
 let myMusic = [];
+let thuvienA = [];
 
 let setplay = 0;
-
+var idthuvien = 0;
+var idthuvienall = 0;
 var playButtonId = document.querySelectorAll(".songItem i");
 var IgMuSc = document.querySelector(".IgMuSc");
 var NameBai = document.querySelector(".NameBai");
 var NameNS = document.querySelector(".NameNS");
+var Add = document.querySelectorAll(".ItemGroup .Add");
+var Xoa = document.querySelectorAll(".ItemGroup .Xoa");
 
 let wave = document.querySelector(".wave");
 let currentStart = document.getElementById("currentStart");
@@ -105,14 +109,59 @@ masterPlay.addEventListener("click", () => {
         setplay = 0;
     }
 });
+var dem = 0;
 music.addEventListener("ended", () => {
     myMusic.splice(0, 1);
+    thuvienA.splice(0, 1);
     setplay = 0;
-
+    dem++;
+    playButtonId.forEach(function (playButton, indexi) {
+        playButton.classList.remove("bi-pause-circle-fill");
+        playButton.classList.add("bi-play-circle-fill");
+    });
     if (myMusic.length == 0) {
         PlayingEnd();
     } else {
         Playing();
+        playButtonIdthuvien.forEach(function (playButton, indexi) {
+            playButton.classList.remove("bi-pause-circle-fill");
+            playButton.classList.add("bi-play-circle-fill");
+            if (dem === indexi) {
+                playButton.classList.remove("bi-play-fill");
+                playButton.classList.add("bi-pause-fill");
+                wave.classList.add("active2");
+                setplay = 1;
+            }
+        });
+
+        $.ajax({
+            type: "POST",
+            url: "/ln/" + thuvienA,
+            dataType: "json",
+            data: { _token: csrfToken },
+            success: function (data) {
+                console.log("wellcome to diablu music");
+            },
+            error: function (error) {
+                console.error("Đã xảy ra lỗi: ", error);
+            },
+        });
+        $.ajax({
+            type: "POST",
+            url: "/loadmusic/" + thuvienA,
+            dataType: "json",
+            data: { _token: csrfToken },
+            success: function (data) {
+                console.log("ađâs", data);
+                IgMuSc.src = "../../images/" + data.success.imagemusic;
+                NameBai.innerText = data.success.tennhac;
+                NameNS.innerText = data.successns.tennghesi;
+            },
+
+            error: function (error) {
+                console.error("Đã xảy ra lỗi: ", error);
+            },
+        });
     }
 
     playButtonId.forEach(function (playButton1, indexi) {
@@ -185,6 +234,112 @@ imgdropdow.addEventListener("click", function () {
             getComputedStyle(dropdo_login).display === "none";
         dropdo_login.style.display = isHidden1 ? "block" : "none";
     }
+});
+Add.forEach(function (addButton, indexi) {
+    addButton.addEventListener("click", function () {
+        var ida = addButton.title;
+        // console.log(id,addButton);
+        $.ajax({
+            type: "POST",
+            url: "/addmusic/" + user + "-" + ida,
+            dataType: "json",
+            data: { _token: csrfToken },
+            success: function (data) {
+                alert("Thêm thành công");
+            },
+
+            error: function (error) {
+                console.error("Đã xảy ra lỗi: ", error);
+            },
+        });
+    });
+});
+Xoa.forEach(function (xoaButton, indexi) {
+    xoaButton.addEventListener("click", function () {
+        var ida = xoaButton.title;
+        // console.log(id,addButton);
+        $.ajax({
+            type: "POST",
+            url: "/xoamusic/" + user + "-" + ida,
+            dataType: "json",
+            data: { _token: csrfToken },
+            success: function (data) {
+                alert("Thêm thành công");
+            },
+
+            error: function (error) {
+                console.error("Đã xảy ra lỗi: ", error);
+            },
+        });
+    });
+});
+
+// thu vien-----------------------------------------------------------------------------------------
+var playButtonIdthuvien = document.querySelectorAll(".songItemALLlabary i");
+var currentIndex = 0;
+playButtonIdthuvien.forEach(function (playButton, indexi) {
+    var playButtonIdplay = playButton.id;
+    myMusic = [...myMusic, playButtonIdplay];
+    thuvienA = [...thuvienA, playButton.title];
+    console.log("?", myMusic, thuvienA);
+    playButton.addEventListener("click", () => {
+        playButtonIdthuvien.forEach(function (playButton, indexi) {
+            playButton.classList.remove("bi-pause-circle-fill");
+            playButton.classList.add("bi-play-circle-fill");
+        });
+
+        // Lấy chỉ số của nút đã chọn trong danh sách
+        currentIndex = Array.from(playButtonIdthuvien).indexOf(playButton);
+        // Cập nhật danh sách nhạc từ vị trí đã chọn đến hết danh sách
+        myMusic = Array.from(playButtonIdthuvien)
+            .slice(currentIndex)
+            .map((button) => button.id);
+        thuvienA = Array.from(playButtonIdthuvien)
+            .slice(currentIndex)
+            .map((button) => button.title);
+        if (myMusic.length > 0) {
+            Playing();
+            masterPlay.classList.remove("bi-play-fill");
+            masterPlay.classList.add("bi-pause-fill");
+            wave.classList.add("active2");
+            setplay = 1;
+        } else {
+            PlayingEnd();
+            setplay = 0;
+        }
+        console.log("?", myMusic, thuvienA);
+        playButton.classList.remove("bi-play-circle-fill");
+        playButton.classList.add("bi-pause-circle-fill");
+        idthuvien = playButton.title;
+        $.ajax({
+            type: "POST",
+            url: "/ln/" + idthuvien,
+            dataType: "json",
+            data: { _token: csrfToken },
+            success: function (data) {
+                console.log("wellcome to diablu music");
+            },
+            error: function (error) {
+                console.error("Đã xảy ra lỗi: ", error);
+            },
+        });
+        $.ajax({
+            type: "POST",
+            url: "/loadmusic/" + idthuvien,
+            dataType: "json",
+            data: { _token: csrfToken },
+            success: function (data) {
+                console.log("ađâs", data);
+                IgMuSc.src = "../../images/" + data.success.imagemusic;
+                NameBai.innerText = data.success.tennhac;
+                NameNS.innerText = data.successns.tennghesi;
+            },
+
+            error: function (error) {
+                console.error("Đã xảy ra lỗi: ", error);
+            },
+        });
+    });
 });
 
 $(document).ready(function () {

@@ -56,11 +56,19 @@
 <script type="text/javascript" src="../../inc/js/index.js">
 
 </script>
+@if (Auth::guard('api')->check()) 
+    <script>
+     const user='{{ $infouser->id }}';
+    </script>
+@endif
 <script>
 
     var csrfToken =` {{ csrf_token() }}`;
     var baidau='{{ $baidau->nhaclink }}';
     var idbaidau='{{ $baidau->id }}';
+    
+   
+
 
 </script>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>

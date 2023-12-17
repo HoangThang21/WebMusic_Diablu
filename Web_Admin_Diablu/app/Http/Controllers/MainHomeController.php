@@ -52,6 +52,33 @@ class MainHomeController extends Controller
             );
         }
     }
+    public function thuvien()
+    {
+        $nhacmax = Nhac::max('luotnghe');
+        $nhac = Nhac::where('luotnghe', $nhacmax)->first();
+        $album = Album::where('id', $nhac->album_idnhac)->first();
+        $nghesi = Nghesi::where('id', $album->nghesi_idalbum)->first();
+        if (Auth::guard('api')->check()) {
+
+            return view(
+                'Web.thuvien',
+                [
+                    'infouser' =>   Auth::guard('api')->user(),
+                    'nghesi' => Nghesi::all(),
+                    'nhac' => Nhac::all(),
+                    'theloai' => Theloai::all(),
+                    'album' => Album::all(),
+                    'baidau' => $nhac,    'nhacsearch' => '',
+                    'nghesidau' => $nghesi,
+                    'albumdau' => $album,
+
+
+                ]
+            );
+        } else {
+            return view("Web.login");
+        }
+    }
     public function login()
     {
 
@@ -118,27 +145,99 @@ class MainHomeController extends Controller
 
         ]);
         $results = Nhac::where('tennhac', 'like', '%' . $request->input('searchvv') . '%')->get();
-   
-       
-            $nhacmax = Nhac::max('luotnghe');
-            $nhac = Nhac::where('luotnghe', $nhacmax)->first();
-            $album = Album::where('id', $nhac->album_idnhac)->first();
-            $nghesi = Nghesi::where('id', $album->nghesi_idalbum)->first();
-            return view(
-                "MainMusic",
-                [
-                    'infouser' =>   Auth::guard('api')->user(),
-                    'nghesi' => Nghesi::all(),
-                    'nhac' => Nhac::all(),
-                    'nhacsearch' => $results,
-                    'theloai' => Theloai::all(),
-                    'album' => Album::all(),
-                    'baidau' => $nhac,
-                    'nghesidau' => $nghesi,
-                    'albumdau' => $album,
-                ]
-            );
-        
+
+
+        $nhacmax = Nhac::max('luotnghe');
+        $nhac = Nhac::where('luotnghe', $nhacmax)->first();
+        $album = Album::where('id', $nhac->album_idnhac)->first();
+        $nghesi = Nghesi::where('id', $album->nghesi_idalbum)->first();
+        return view(
+            "MainMusic",
+            [
+                'infouser' =>   Auth::guard('api')->user(),
+                'nghesi' => Nghesi::all(),
+                'nhac' => Nhac::all(),
+                'nhacsearch' => $results,
+                'theloai' => Theloai::all(),
+                'album' => Album::all(),
+                'baidau' => $nhac,
+                'nghesidau' => $nghesi,
+                'albumdau' => $album,
+            ]
+        );
+    }
+    public function addmusic(Request $request, $user, $ida)
+    {
+        $user = User::where('id', $user)->first();
+        if ($user != null) {
+            if (strpos($user->thuvien, $ida) === false) {
+                // Nếu không tìm thấy số  trong chuỗi $
+                $newThuvien = $user->thuvien . $ida . '-';
+
+                User::where('id', $user->id)
+                    ->update([
+                        'thuvien' => $newThuvien,
+                    ]);
+
+                $nhacmax = Nhac::max('luotnghe');
+                $nhac = Nhac::where('luotnghe', $nhacmax)->first();
+                $album = Album::where('id', $nhac->album_idnhac)->first();
+                $nghesi = Nghesi::where('id', $album->nghesi_idalbum)->first();
+                return view(
+                    "MainMusic",
+                    [
+                        'infouser' =>   Auth::guard('api')->user(),
+                        'nghesi' => Nghesi::all(),
+                        'nhac' => Nhac::all(),
+                        'nhacsearch' => '',
+                        'theloai' => Theloai::all(),
+                        'album' => Album::all(),
+                        'baidau' => $nhac,
+                        'nghesidau' => $nghesi,
+                        'albumdau' => $album,
+                    ]
+                );
+            }
+        }
+    }
+    public function xoamusic(Request $request, $user, $ida)
+    {
+        // $user = User::where('id', $user)->first();
+        // if ($user != null) {
+        //     if (strpos($user->thuvien, $ida) === false) {
+        //         // Nếu không tìm thấy số  trong chuỗi $
+        //         $arrayA = explode('-', $user->thuvien);
+        //         $key = array_search($ida, $arrayA);
+
+        //         if ($key !== false) {
+        //             unset($arrayA[$key]);
+        //             $newThuvien = implode('-', $arrayA);
+        //             User::where('id', $user->id)
+        //                 ->update([
+        //                     'thuvien' => $newThuvien,
+        //                 ]);
+
+        //             $nhacmax = Nhac::max('luotnghe');
+        //             $nhac = Nhac::where('luotnghe', $nhacmax)->first();
+        //             $album = Album::where('id', $nhac->album_idnhac)->first();
+        //             $nghesi = Nghesi::where('id', $album->nghesi_idalbum)->first();
+        //             return view(
+        //                 "Web.profile",
+        //                 [
+        //                     'infouser' =>   Auth::guard('api')->user(),
+        //                     'nghesi' => Nghesi::all(),
+        //                     'nhac' => Nhac::all(),
+        //                     'nhacsearch' => '',
+        //                     'theloai' => Theloai::all(),
+        //                     'album' => Album::all(),
+        //                     'baidau' => $nhac,
+        //                     'nghesidau' => $nghesi,
+        //                     'albumdau' => $album,
+        //                 ]
+        //             );
+        //         }
+        //     }
+        // }
     }
     public function loadmusic(Request $request, string $id)
     {

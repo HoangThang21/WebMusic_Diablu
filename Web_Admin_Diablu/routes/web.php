@@ -132,9 +132,12 @@ Route::get('/Administrator/qltheloai', [
 Route::get('/', [MainHomeController::class, 'index']);
 Route::post('/ln/{id}', [MainHomeController::class, 'luotnghe']);
 Route::post('/loadmusic/{id}', [MainHomeController::class, 'loadmusic']);
+Route::post('/addmusic/{user}-{ida}', [MainHomeController::class, 'addmusic']);
+Route::post('/xoamusic/{user}-{ida}', [MainHomeController::class, 'xoamusic']);
 Route::get('/login', [MainHomeController::class, 'login']);
 Route::get('/logout', [MainHomeController::class, 'logout']);
 Route::post('/trangchu', [MainHomeController::class, 'trangchu']);
 Route::get('/trangchu', [MainHomeController::class, 'index']);
+Route::get('/thuvien', [MainHomeController::class, 'thuvien']);
 Route::get('/trangchu/profile', [MainHomeController::class, 'profile']);
 Route::get('/trangchu/search', [MainHomeController::class, 'search']);

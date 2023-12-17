@@ -1,19 +1,7 @@
 @include('layouts.topmain')
 <div>
-    <div class="GeneralInfoPhoto">
-        <div class="UserProfile" >Thông tin tài khoản</div>
-        <div class="Gachngang" ></div>
-        <div class="ImageUser" >
-          <div class="ImageUserItem" >
-            <img class="EllipseImage"  src="../../images/{{ $infouser->image }}" />
-          </div>
-          <div class="infous">
-            <div class="AlaaMohamed" >{{ $infouser->name }}</div>
-          <div class="ProductDesignEmail" >{{ $infouser->email }}</div>
-          </div>
-        </div>
-        
-      </div>
+  
+     
       <div class="table">
         <div class="PodcastItem" >
           <div class="IDprocas">#</div>
@@ -37,7 +25,7 @@
                         <div class="ItemGroup" >
                           <div class="AngleLeft" >
                             <div class="Play1" >
-                              <li class="songItem">
+                              <li class="songItemALLlabary ">
                                 <i
                                     class="bi playListPlay bi-play-circle-fill"
                                     id="{{ $n->nhaclink }}"

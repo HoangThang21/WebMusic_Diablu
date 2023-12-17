@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->string('quyen');
             $table->timestamps();
-            $table->text('khonhac')->nullable();
+            $table->text('thuvien')->nullable();
             $table->unsignedInteger('trangthai');
             // $table->foreign('nghesi_id')->references('id')->on('nghesi');
         });

@@ -1,5 +1,6 @@
 @include('layouts.topmain')
 <div>
+ 
   @if ($nhacsearch!=null)
  
     <div class="table">
@@ -35,10 +36,7 @@
                   </div>
                   <div class="HowToStartPodcast" > {{ $n->tennhac }}</div>
                   <div class="View" > {{ number_format($n->luotnghe) }}</div>
-                  <div class="Add">
-                      ...
-                      <div class="addmusic">Thêm nhạc vào tài khoản</div>
-                  </div>
+            
                  
                   
                 </div>
@@ -82,8 +80,8 @@
   <div class="table">
     <div class="PodcastItem" >
       <div class="IDprocas">#</div>
-      <div class="Title">Title</div>
-      <div class="Playlist" >Playlist</div>
+      <div class="Title">Thông tin</div>
+      <div class="Playlist" >Tên bài</div>
       <div class="HeadSideHeadphones1" >
         Lượt nghe
       </div>
@@ -112,7 +110,13 @@
                   </div>
                   <div class="HowToStartPodcast" > {{ $n->tennhac }}</div>
                   <div class="View" > {{ number_format($n->luotnghe) }}</div>
-                 
+                  @if (Auth::guard('api')->check()) 
+                    <div class="Add" title="{{ $n->id }}">
+                      Thêm vào thư viện
+                      
+                  </div>
+                @endif
+                  
                  
                   
                 </div>

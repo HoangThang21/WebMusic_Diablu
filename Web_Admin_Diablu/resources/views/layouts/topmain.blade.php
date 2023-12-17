@@ -17,16 +17,15 @@
         <div class="menu_side">
            <a href="/trangchu"> <h1>Music Diablu</h1></a>
             <div class="playlist">
-                <h4 class="active">
-                    <span></span
-                    ><i class="bi bi-music-note-beamed"></i>Playlist
+                <h4 class="<?php if(strpos($_SERVER['REQUEST_URI'],"trangchu") != false) echo "active"; ?>">
+                    <a href="/trangchu" ><span></span
+                        ><i class="bi bi-music-note-beamed"></i>Playlist</a>
+                </h4>
+                <h4 class="<?php if(strpos($_SERVER['REQUEST_URI'],"thuvien") != false) echo "active"; ?>">
+                    <a href="/thuvien"><span></span><i class="bi bi-music-note-beamed"></i>Thư viện</a>
                 </h4>
                 <h4>
-                    <span></span><i class="bi bi-music-note-beamed"></i>Last
-                    listening
-                </h4>
-                <h4>
-                    <span></span><i class="bi bi-music-note-beamed"></i>Reco
+                    <a href="#"><span></span><i class="bi bi-music-note-beamed"></i>...</a>
                 </h4>
             </div>
             <div class="menu_song">
