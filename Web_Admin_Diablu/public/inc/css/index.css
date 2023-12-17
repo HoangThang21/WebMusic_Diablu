@@ -148,7 +148,11 @@ header .menu_side .menu_song li img {
 }
 header .menu_side .menu_song li h5 {
     font-size: 11px;
+    width: 170px;
     margin-left: 15px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 header .menu_side .menu_song li h5 .subtitle {
     font-size: 9px;
@@ -514,7 +518,7 @@ header .song_side nav .user .dropdo_login li:hover a {
     flex-wrap: wrap;
 }
 header .song_side .content {
-    height: 500px;
+    height: 440px;
     overflow: scroll;
     margin-top: 75px;
 }
@@ -563,7 +567,6 @@ header .song_side .content .Thumbnail .Frame1 .HowToStartPodcast {
     color: white;
     font-size: 32px;
     font-weight: 700;
-    word-wrap: break-word;
 }
 header .song_side .content .Thumbnail .Frame1 .MonthlyListeners {
     color: rgba(255, 255, 255, 0.8);
@@ -736,9 +739,11 @@ header
     .YourFriendsInstead {
     color: white;
     font-size: 16px;
-
+    width: 200px;
     font-weight: 500;
-    word-wrap: break-word;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 header .song_side .content .table .PodcastItemMusic .ItemGroup .KenAdam {
     color: rgba(255, 255, 255, 0.3);
@@ -781,14 +786,16 @@ header
     .PodcastItemMusic
     .ItemGroup
     .HowToStartPodcast {
-    width: 210px;
+    width: 180px;
     left: 425px;
     top: 12px;
     position: absolute;
     color: rgba(255, 255, 255, 0.3);
     font-size: 16px;
     font-weight: 500;
-    word-wrap: break-word;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 header .song_side .content .table .PodcastItemMusic .ItemGroup .View {
     left: 629px;
@@ -875,5 +882,14 @@ header
     color: #fff;
     font-size: 20px;
     font-weight: 400;
+    word-wrap: break-word;
+}
+header .song_side .content .table .PodcastItemMusic .ItemGroup .Add {
+    left: 629px;
+    top: 12px;
+    position: absolute;
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 16px;
+    font-weight: 500;
     word-wrap: break-word;
 }

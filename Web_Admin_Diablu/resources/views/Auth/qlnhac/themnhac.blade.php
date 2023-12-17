@@ -10,7 +10,7 @@
                 <div class="my-3">
                   <input class="form-control"  type="text" name="txttennhac" placeholder="Tên nhạc" required></div>
                   <div class="my-3">
-                    <label class="form-label">Music</label>
+                    <label class="form-label">Music < 40mb </label>
                     <input class="form-control" type="file" name="fnhac" accept=".mp3" required>
                 </div>
                 <div class="my-3">

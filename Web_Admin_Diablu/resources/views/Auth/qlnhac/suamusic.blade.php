@@ -42,7 +42,7 @@
 
                 <div class="my-3">
                 {{-- <input type="hidden" name="action" value="xlthem" > --}}
-                <input class="btn btn-primary"  type="submit" value="Thêm">
+                <input class="btn btn-primary"  type="submit" value="Cập nhật">
                 <input class="btn btn-warning"  type="reset" value="Hủy"></div>
               </form>          
             </div>
