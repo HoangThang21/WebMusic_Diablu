@@ -99,13 +99,13 @@ header .menu_side .playlist a:hover span::before {
 header .menu_side .playlist a .bi {
     display: none;
 }
-header .menu_side .playlist .active  a{
+header .menu_side .playlist .active a {
     color: #36e2ec;
 }
-header .menu_side .playlist  .active a span {
+header .menu_side .playlist .active a span {
     display: none;
 }
-header .menu_side .playlist  .active a .bi {
+header .menu_side .playlist .active a .bi {
     display: flex;
     margin-right: 20px;
 }
@@ -231,6 +231,13 @@ header .master_play h5 {
     margin-left: 15px;
     color: #fff;
     line-height: 15px;
+    height: 30px;
+    white-space: normal;      /* Cho phép xuống dòng */
+    overflow: hidden;         /* Ẩn nội dung dư thừa */
+    text-overflow: ellipsis;  /* Hiển thị dấu chấm khi văn bản bị cắt ngắn */
+    display: -webkit-box;
+    -webkit-line-clamp: 1;    /* Số dòng tối đa */
+    /* -webkit-box-orient: vertical; */
 }
 header .master_play .subtitle {
     font-size: 11px;
@@ -871,6 +878,71 @@ header .song_side .content .GeneralInfoPhoto .ImageUser .infous .AlaaMohamed {
     font-weight: 700;
     word-wrap: break-word;
 }
+header .song_side .content .GeneralInfoPhoto .ImageUser .infous .Urlinstru {
+    display: flex;
+    gap: 40px;
+    margin-top: 20px;
+}
+header
+    .song_side
+    .content
+    .GeneralInfoPhoto
+    .ImageUser
+    .infous
+    .ProductDesignName,
+header
+    .song_side
+    .content
+    .GeneralInfoPhoto
+    .ImageUser
+    .infous
+    .ProductDesignImage {
+    cursor: pointer;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+}
+header .song_side .content .GeneralInfoPhoto .ImageUser .infous .info,
+header .song_side .content .GeneralInfoPhoto .ImageUser .infous .image {
+    margin-top: 10px;
+    display: none;
+}
+header
+    .song_side
+    .content
+    .GeneralInfoPhoto
+    .ImageUser
+    .infous
+    .ProductDesignName:hover {
+    color: #36e2ec;
+}
+header
+    .song_side
+    .content
+    .GeneralInfoPhoto
+    .ImageUser
+    .infous
+    .ProductDesignImage.active {
+    color: #36e2ec;
+}
+header
+    .song_side
+    .content
+    .GeneralInfoPhoto
+    .ImageUser
+    .infous
+    .ProductDesignName.active {
+    color: #36e2ec;
+}
+header
+    .song_side
+    .content
+    .GeneralInfoPhoto
+    .ImageUser
+    .infous
+    .ProductDesignImage:hover {
+    color: #36e2ec;
+}
 header
     .song_side
     .content
@@ -918,3 +990,30 @@ header .song_side .content .table .PodcastItemMusic .ItemGroup .Xoa:hover {
     top: 30px;
     z-index: 999;
 } */
+.loisuse {
+    color: red;
+    font-size: 14px;
+    padding: 10px;
+    font-weight: 500;
+}
+.doimatkhau {
+    padding: 20px;
+}
+.doimatkhau h3 {
+    padding: 0 0 0 200px;
+    font-size: 18px;
+    font-weight: 700;
+}
+.input-container button {
+    width: 120px;
+    padding: 4px;
+    cursor: pointer;
+    background-color: #36e2ec;
+    color: #fff;
+    outline: none;
+    border: none;
+    border-radius: 4px;
+}
+input:focus {
+    outline: none;
+}

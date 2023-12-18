@@ -342,6 +342,31 @@ playButtonIdthuvien.forEach(function (playButton, indexi) {
     });
 });
 
+var ProductDesignName = document.querySelector(".Urlinstru .ProductDesignName");
+var ProductDesignImage = document.querySelector(
+    ".Urlinstru .ProductDesignImage"
+);
+var info = document.querySelector(".info");
+var image = document.querySelector(".image");
+ProductDesignName.addEventListener("click", function () {
+    if (info.style.display === "none" || info.style.display === "") {
+        info.style.display = "block";
+
+        ProductDesignName.classList.add("active");
+    } else {
+        info.style.display = "none";
+        ProductDesignName.classList.remove("active");
+    }
+});
+ProductDesignImage.addEventListener("click", function () {
+    if (image.style.display === "none" || image.style.display === "") {
+        image.style.display = "block";
+        ProductDesignImage.classList.add("active");
+    } else {
+        image.style.display = "none";
+        ProductDesignImage.classList.remove("active");
+    }
+});
 $(document).ready(function () {
     $("#searchInput").keypress(function (event) {
         if (event.keyCode === 13) {

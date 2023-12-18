@@ -47,6 +47,7 @@
                                     <label class="form-check-label" for="remember">
                                         {{ __('Remember Me') }}
                                     </label>
+                                     <a  class="p-6" href="/register">Đăng ký</a>
                                 </div>
                             </div>
                         </div>

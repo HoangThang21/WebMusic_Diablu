@@ -84,6 +84,140 @@ class MainHomeController extends Controller
 
         return view("Web.login");
     }
+    public function login_dangky(Request $request)
+    {
+        $request->validate([
+            'txtten' => ['required'],
+            'email' => ['required'],
+            'passwordnew' => ['required'],
+            'passwordnewxn' => ['required'],
+            'fhinh' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+        $user = User::where('email', $request->input('email'))->first();
+
+        if ($user != null) {
+            return view('Web.register', ['message' => 'Email đã có hãy nhập email khác.']);
+        }
+
+        if ($request->input('passwordnew') == $request->input('passwordnewxn')) {
+            $generatedimage = 'image' . time() . '-' . $request->file('fhinh')->getClientOriginalName();
+            $request->file('fhinh')->move(public_path('images'), $generatedimage);
+            $us = new User();
+            $us->name = $request->input('txtten');
+            $us->email = $request->input('email');
+            $us->password = Hash::make($request->input('passwordnew'));
+            $us->image = $generatedimage;
+            $us->quyen = 3;
+            $us->trangthai = 1;
+            $us->save();
+            return redirect()->intended('/login');
+        } else {
+            $se = 'Lỗi,mật khẩu không giống nhau';
+            return view('Web.register', ['message' => $se]);
+        }
+    }
+    public function register()
+    {
+
+        return view("Web.register", ['message' => '']);
+    }
+    public function doimatkhau()
+    {
+        $nhacmax = Nhac::max('luotnghe');
+        $nhac = Nhac::where('luotnghe', $nhacmax)->first();
+        $album = Album::where('id', $nhac->album_idnhac)->first();
+        $nghesi = Nghesi::where('id', $album->nghesi_idalbum)->first();
+        return view("Web.doimatkhau", [
+            'infouser' =>   Auth::guard('api')->user(),
+            'nghesi' => Nghesi::all(),
+            'nhac' => Nhac::all(),
+            'theloai' => Theloai::all(),
+            'album' => Album::all(),
+            'baidau' => $nhac,    'nhacsearch' => '',
+            'nghesidau' => $nghesi,
+            'albumdau' => $album, 'loi' => ''
+        ]);
+    }
+    public function doiten(Request $request)
+    {
+
+        $request->validate([
+            'txtdoiten' => ['required'],
+            'usid' => ['required'],
+        ]);
+        $us = User::where('id', $request->input('usid'))->update([
+            'name' => $request->input('txtdoiten')
+        ]);
+
+        $user = User::where('id', $request->input('usid'))->first();
+        Auth::guard('api')->setUser($user);
+        return redirect()->intended('/trangchu/profile');
+    }
+    public function doimatkhau_user(Request $request)
+    {
+
+        $request->validate([
+            'txtpascu' => ['required'],
+            'txtmatkhaumoi' => ['required'],
+            'txtmatkhaumoixn' => ['required'],
+        ]);
+        $user = User::where('id', $request->input('iduser'))->first();
+        $nhacmax = Nhac::max('luotnghe');
+        $nhac = Nhac::where('luotnghe', $nhacmax)->first();
+        $album = Album::where('id', $nhac->album_idnhac)->first();
+        $nghesi = Nghesi::where('id', $album->nghesi_idalbum)->first();
+        if (Hash::check($request->input('txtpascu'), $user->password)) {
+            if ($request->input('txtmatkhaumoi') === $request->input('txtmatkhaumoixn')) {
+                $us = User::where('id', $request->input('iduser'))->update([
+                    'password' => Hash::make($request->input('txtmatkhaumoi')),
+                ]);
+                Auth::guard('web')->logout();
+
+                return  redirect()->intended('/login');
+            } else {
+                $se = 'Lỗi,mật khẩu không giống nhau';
+                return view("Web.doimatkhau", [
+                    'infouser' =>   Auth::guard('api')->user(),
+                    'nghesi' => Nghesi::all(),
+                    'nhac' => Nhac::all(),
+                    'theloai' => Theloai::all(),
+                    'album' => Album::all(),
+                    'baidau' => $nhac,    'nhacsearch' => '',
+                    'nghesidau' => $nghesi,
+                    'albumdau' => $album, 'loi' =>  $se
+                ]);
+            }
+        } else {
+            $se = 'Lỗi,mật khẩu cũ';
+            return view("Web.doimatkhau", [
+                'infouser' =>   Auth::guard('api')->user(),
+                'nghesi' => Nghesi::all(),
+                'nhac' => Nhac::all(),
+                'theloai' => Theloai::all(),
+                'album' => Album::all(),
+                'baidau' => $nhac,    'nhacsearch' => '',
+                'nghesidau' => $nghesi,
+                'albumdau' => $album, 'loi' =>  $se
+            ]);
+        }
+    }
+    public function doihinhdaidien(Request $request)
+    {
+
+        $request->validate([
+            'fhinh' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'usid' => ['required'],
+        ]);
+        $generatedimage = 'image' . time() . '-' . $request->file('fhinh')->getClientOriginalName();
+        $request->file('fhinh')->move(public_path('images'), $generatedimage);
+        $us = User::where('id', $request->input('usid'))->update([
+            'image' => $generatedimage,
+        ]);
+
+        $user = User::where('id', $request->input('usid'))->first();
+        Auth::guard('api')->setUser($user);
+        return redirect()->intended('/trangchu/profile');
+    }
     public function logout()
     {
         Auth::guard('api')->logout();

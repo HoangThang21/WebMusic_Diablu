@@ -228,7 +228,9 @@ class AdminHomeControllers extends Controller
                 $us = User::where('id', $request->input('iduser'))->update([
                     'password' => Hash::make($request->input('txtmatkhaumoi')),
                 ]);
-                return redirect()->intended('/Administrator');
+                Auth::guard('web')->logout();
+
+                return  redirect()->intended('/Administrator/login');
             } else {
                 $se = 'Lỗi,mật khẩu không giống nhau';
                 return view('Auth.qlnguoidung.doimatkhau', ['ttnguoidung' =>  Auth::guard('web')->user(), 'loi' => $se]);

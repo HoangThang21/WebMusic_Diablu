@@ -9,7 +9,31 @@
           </div>
           <div class="infous">
             <div class="AlaaMohamed" >{{ $infouser->name }}</div>
-          <div class="ProductDesignEmail" >{{ $infouser->email }}</div>
+            <div class="ProductDesignEmail" >{{ $infouser->email }}</div>
+            <div class="Urlinstru">
+                <div class="ProductDesignName" >Đổi tên</div>
+                <div class="ProductDesignImage" >Đổi hình đại diện</div>
+            </div>
+            <div class="info">
+              <form class="fname" action="trangchu/profile/doiten" method="post">
+                @csrf
+                        @method('put')
+                        <input type="hidden" name="usid" value="{{ $infouser->id }}"  >
+                <input type="text" placeholder="Nhập tên cần đổi" name ='txtdoiten'required>
+                <button type="submit">Xác nhận</button>
+              </form>
+            </div>
+            <div class="image">
+            
+              <form class="fimage"  action="trangchu/profile/doihinhdaidien" method="post" enctype="multipart/form-data">
+                @csrf
+                @method('put')
+                <input type="hidden" name="usid" value="{{ $infouser->id }}"  >
+                <input class="form-control" type="file" name="fhinh"  required>
+
+                <button type="submit">Xác nhận</button>
+              </form>
+            </div>
           </div>
         </div>
         
