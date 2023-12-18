@@ -232,11 +232,11 @@ header .master_play h5 {
     color: #fff;
     line-height: 15px;
     height: 30px;
-    white-space: normal;      /* Cho phép xuống dòng */
-    overflow: hidden;         /* Ẩn nội dung dư thừa */
-    text-overflow: ellipsis;  /* Hiển thị dấu chấm khi văn bản bị cắt ngắn */
+    white-space: normal; /* Cho phép xuống dòng */
+    overflow: hidden; /* Ẩn nội dung dư thừa */
+    text-overflow: ellipsis; /* Hiển thị dấu chấm khi văn bản bị cắt ngắn */
     display: -webkit-box;
-    -webkit-line-clamp: 1;    /* Số dòng tối đa */
+    -webkit-line-clamp: 1; /* Số dòng tối đa */
     /* -webkit-box-orient: vertical; */
 }
 header .master_play .subtitle {
@@ -711,6 +711,8 @@ header .song_side .content .table .PodcastItemMusic {
 header .song_side .content .table .PodcastItemMusic:hover {
     background-color: rgb(105, 105, 170, 0.1);
 }
+
+
 header .song_side .content .table .PodcastItemMusic .ItemGroup {
     width: 832px;
     height: 45px;

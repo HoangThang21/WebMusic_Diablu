@@ -59,7 +59,7 @@ playButtonId.forEach(function (playButton, indexi) {
             dataType: "json",
             data: { _token: csrfToken },
             success: function (data) {
-                console.log("ađâs", data);
+            
                 IgMuSc.src = "../../images/" + data.success.imagemusic;
                 NameBai.innerText = data.success.tennhac;
                 NameNS.innerText = data.successns.tennghesi;
@@ -115,20 +115,20 @@ music.addEventListener("ended", () => {
     thuvienA.splice(0, 1);
     setplay = 0;
     dem++;
-    playButtonId.forEach(function (playButton, indexi) {
-        playButton.classList.remove("bi-pause-circle-fill");
-        playButton.classList.add("bi-play-circle-fill");
-    });
+
     if (myMusic.length == 0) {
         PlayingEnd();
+        dem = 0;
     } else {
         Playing();
         playButtonIdthuvien.forEach(function (playButton, indexi) {
             playButton.classList.remove("bi-pause-circle-fill");
             playButton.classList.add("bi-play-circle-fill");
+            playButton.classList.remove("active");
             if (dem === indexi) {
-                playButton.classList.remove("bi-play-fill");
-                playButton.classList.add("bi-pause-fill");
+                playButton.classList.remove("bi-play-circle-fill");
+                playButton.classList.add("bi-pause-circle-fill");
+                playButton.classList.add("active");
                 wave.classList.add("active2");
                 setplay = 1;
             }
@@ -152,7 +152,7 @@ music.addEventListener("ended", () => {
             dataType: "json",
             data: { _token: csrfToken },
             success: function (data) {
-                console.log("ađâs", data);
+                
                 IgMuSc.src = "../../images/" + data.success.imagemusic;
                 NameBai.innerText = data.success.tennhac;
                 NameNS.innerText = data.successns.tennghesi;
@@ -238,7 +238,7 @@ imgdropdow.addEventListener("click", function () {
 Add.forEach(function (addButton, indexi) {
     addButton.addEventListener("click", function () {
         var ida = addButton.title;
-        // console.log(id,addButton);
+   
         $.ajax({
             type: "POST",
             url: "/addmusic/" + user + "-" + ida,
@@ -257,7 +257,7 @@ Add.forEach(function (addButton, indexi) {
 Xoa.forEach(function (xoaButton, indexi) {
     xoaButton.addEventListener("click", function () {
         var ida = xoaButton.title;
-        // console.log(id,addButton);
+
         $.ajax({
             type: "POST",
             url: "/xoamusic/" + user + "-" + ida,
@@ -281,11 +281,12 @@ playButtonIdthuvien.forEach(function (playButton, indexi) {
     var playButtonIdplay = playButton.id;
     myMusic = [...myMusic, playButtonIdplay];
     thuvienA = [...thuvienA, playButton.title];
-    console.log("?", myMusic, thuvienA);
+
     playButton.addEventListener("click", () => {
         playButtonIdthuvien.forEach(function (playButton, indexi) {
             playButton.classList.remove("bi-pause-circle-fill");
             playButton.classList.add("bi-play-circle-fill");
+            playButton.classList.remove("active");
         });
 
         // Lấy chỉ số của nút đã chọn trong danh sách
@@ -307,9 +308,10 @@ playButtonIdthuvien.forEach(function (playButton, indexi) {
             PlayingEnd();
             setplay = 0;
         }
-        console.log("?", myMusic, thuvienA);
+       
         playButton.classList.remove("bi-play-circle-fill");
         playButton.classList.add("bi-pause-circle-fill");
+        playButton.classList.add("active");
         idthuvien = playButton.title;
         $.ajax({
             type: "POST",
@@ -329,7 +331,6 @@ playButtonIdthuvien.forEach(function (playButton, indexi) {
             dataType: "json",
             data: { _token: csrfToken },
             success: function (data) {
-                console.log("ađâs", data);
                 IgMuSc.src = "../../images/" + data.success.imagemusic;
                 NameBai.innerText = data.success.tennhac;
                 NameNS.innerText = data.successns.tennghesi;
