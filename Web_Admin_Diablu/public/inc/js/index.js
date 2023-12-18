@@ -59,7 +59,6 @@ playButtonId.forEach(function (playButton, indexi) {
             dataType: "json",
             data: { _token: csrfToken },
             success: function (data) {
-            
                 IgMuSc.src = "../../images/" + data.success.imagemusic;
                 NameBai.innerText = data.success.tennhac;
                 NameNS.innerText = data.successns.tennghesi;
@@ -125,6 +124,7 @@ music.addEventListener("ended", () => {
             playButton.classList.remove("bi-pause-circle-fill");
             playButton.classList.add("bi-play-circle-fill");
             playButton.classList.remove("active");
+
             if (dem === indexi) {
                 playButton.classList.remove("bi-play-circle-fill");
                 playButton.classList.add("bi-pause-circle-fill");
@@ -136,7 +136,7 @@ music.addEventListener("ended", () => {
 
         $.ajax({
             type: "POST",
-            url: "/ln/" + thuvienA,
+            url: "/ln/" + thuvienA[0],
             dataType: "json",
             data: { _token: csrfToken },
             success: function (data) {
@@ -148,11 +148,10 @@ music.addEventListener("ended", () => {
         });
         $.ajax({
             type: "POST",
-            url: "/loadmusic/" + thuvienA,
+            url: "/loadmusic/" + thuvienA[0],
             dataType: "json",
             data: { _token: csrfToken },
             success: function (data) {
-                
                 IgMuSc.src = "../../images/" + data.success.imagemusic;
                 NameBai.innerText = data.success.tennhac;
                 NameNS.innerText = data.successns.tennghesi;
@@ -238,7 +237,7 @@ imgdropdow.addEventListener("click", function () {
 Add.forEach(function (addButton, indexi) {
     addButton.addEventListener("click", function () {
         var ida = addButton.title;
-   
+
         $.ajax({
             type: "POST",
             url: "/addmusic/" + user + "-" + ida,
@@ -283,12 +282,14 @@ playButtonIdthuvien.forEach(function (playButton, indexi) {
     thuvienA = [...thuvienA, playButton.title];
 
     playButton.addEventListener("click", () => {
-        playButtonIdthuvien.forEach(function (playButton, indexi) {
+        playButtonIdthuvien.forEach(function (playButton, indexiabc) {
             playButton.classList.remove("bi-pause-circle-fill");
             playButton.classList.add("bi-play-circle-fill");
             playButton.classList.remove("active");
         });
-
+        myMusic = [];
+        thuvienA = [];
+        dem = indexi;
         // Lấy chỉ số của nút đã chọn trong danh sách
         currentIndex = Array.from(playButtonIdthuvien).indexOf(playButton);
         // Cập nhật danh sách nhạc từ vị trí đã chọn đến hết danh sách
@@ -308,11 +309,12 @@ playButtonIdthuvien.forEach(function (playButton, indexi) {
             PlayingEnd();
             setplay = 0;
         }
-       
+
         playButton.classList.remove("bi-play-circle-fill");
         playButton.classList.add("bi-pause-circle-fill");
         playButton.classList.add("active");
         idthuvien = playButton.title;
+
         $.ajax({
             type: "POST",
             url: "/ln/" + idthuvien,
