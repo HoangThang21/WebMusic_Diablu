@@ -235,25 +235,29 @@ class MainHomeController extends Controller
         $album = Album::where('id', $nhac->album_idnhac)->first();
         $nghesi = Nghesi::where('id', $album->nghesi_idalbum)->first();
         if (Hash::check($request->password, $users->password)) {
-            Auth::guard('api')->login($users);
-            if (Auth::guard('api')->check()) {
+            if ($users->trangthai != 0) {
+                Auth::guard('api')->login($users);
+                if (Auth::guard('api')->check()) {
 
-                return view(
-                    'MainMusic',
-                    [
-                        'infouser' =>   Auth::guard('api')->user(),
-                        'nghesi' => Nghesi::all(),
-                        'nhac' => Nhac::all(),
-                        'theloai' => Theloai::all(),
-                        'nhacsearch' => '',
-                        'album' => Album::all(),
-                        'baidau' => $nhac,
-                        'nghesidau' => $nghesi,
-                        'albumdau' => $album,
+                    return view(
+                        'MainMusic',
+                        [
+                            'infouser' =>   Auth::guard('api')->user(),
+                            'nghesi' => Nghesi::all(),
+                            'nhac' => Nhac::all(),
+                            'theloai' => Theloai::all(),
+                            'nhacsearch' => '',
+                            'album' => Album::all(),
+                            'baidau' => $nhac,
+                            'nghesidau' => $nghesi,
+                            'albumdau' => $album,
 
 
-                    ]
-                );
+                        ]
+                    );
+                }
+            } else {
+                return view('Web.login');
             }
         } else {
             return view('Web.login');
