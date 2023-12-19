@@ -66,23 +66,27 @@ class AdminHomeControllers extends Controller
         ]);
         $users = User::where("email", $request->input('email'))->first();
         if ($users->quyen == 1 || $users->quyen == 2) {
-            if (Hash::check($request->password, $users->password)) {
-                Auth::guard('web')->login($users);
-                if (Auth::guard('web')->check()) {
+            if ($users->trangthai != 0) {
+                if (Hash::check($request->password, $users->password)) {
+                    Auth::guard('web')->login($users);
+                    if (Auth::guard('web')->check()) {
 
-                    return view(
-                        'Auth/index',
-                        [
-                            'ttnguoidung' =>   Auth::guard('web')->user(),
-                            'user' => User::all(),
-                            'nghesi' => Nghesi::all(),
-                            'nhac' => Nhac::all(),
-                            'theloai' => Theloai::all(),
-                            'album' => Album::all(),
+                        return view(
+                            'Auth/index',
+                            [
+                                'ttnguoidung' =>   Auth::guard('web')->user(),
+                                'user' => User::all(),
+                                'nghesi' => Nghesi::all(),
+                                'nhac' => Nhac::all(),
+                                'theloai' => Theloai::all(),
+                                'album' => Album::all(),
 
 
-                        ]
-                    );
+                            ]
+                        );
+                    }
+                } else {
+                    return view('Auth.login');
                 }
             } else {
                 return view('Auth.login');
