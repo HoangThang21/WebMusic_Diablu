@@ -65,14 +65,14 @@ class AdminHomeControllers extends Controller
             'password' => ['required'],
         ]);
         $users = User::where("email", $request->input('email'))->first();
-        if ($users->quyen == 1 || $users->quyen == 2) {
+        if ($users->quyen == 1) {
             if ($users->trangthai != 0) {
                 if (Hash::check($request->password, $users->password)) {
                     Auth::guard('web')->login($users);
                     if (Auth::guard('web')->check()) {
 
                         return view(
-                            'Auth/index',
+                            'Auth.index',
                             [
                                 'ttnguoidung' =>   Auth::guard('web')->user(),
                                 'user' => User::all(),
@@ -91,8 +91,32 @@ class AdminHomeControllers extends Controller
             } else {
                 return view('Auth.login');
             }
-        } else {
-            return view('Auth.login');
+        } else if ($users->quyen == 2) {
+            if ($users->trangthai != 0) {
+                if (Hash::check($request->password, $users->password)) {
+                    Auth::guard('web')->login($users);
+                    if (Auth::guard('web')->check()) {
+
+                        return view(
+                            'Auth.qlnhac.home',
+                            [
+                                'ttnguoidung' =>   Auth::guard('web')->user(),
+                                'user' => User::all(),
+                                'nghesi' => Nghesi::all(),
+                                'nhac' => Nhac::all(),
+                                'theloai' => Theloai::all(),
+                                'album' => Album::all(),
+
+
+                            ]
+                        );
+                    }
+                } else {
+                    return view('Auth.login');
+                }
+            } else {
+                return view('Auth.login');
+            }
         }
     }
     public function themnguoidung()
